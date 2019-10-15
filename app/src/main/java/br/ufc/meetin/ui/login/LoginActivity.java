@@ -24,6 +24,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import br.ufc.meetin.PrincipalActivity;
 import br.ufc.meetin.R;
 import br.ufc.meetin.RegisterActivity;
 import br.ufc.meetin.ui.login.LoginViewModel;
@@ -117,6 +118,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loadingProgressBar.setVisibility(View.VISIBLE);
+                openPrincipalActivity();
                 loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
             }
@@ -138,6 +140,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private void showLoginFailed(@StringRes Integer errorString) {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
+    }
+
+    public void openPrincipalActivity(){
+        Intent intent = new Intent(this, PrincipalActivity.class);
+        startActivity(intent);
     }
 
     public void openRegisterActivity(){

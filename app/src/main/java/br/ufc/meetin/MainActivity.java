@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.content.Intent;
-
 import android.os.Bundle;
 
 import br.ufc.meetin.ui.login.LoginActivity;
@@ -31,5 +30,10 @@ public class MainActivity extends AppCompatActivity {
     public void openLoginActivity(){
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
+    }
+
+    public void teste(View view){
+        BackgroundWorker backgroundWorker = new BackgroundWorker(this);
+        backgroundWorker.execute("login", "Katharine", "12345");
     }
 }

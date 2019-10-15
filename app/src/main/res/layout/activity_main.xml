@@ -25,7 +25,6 @@
         android:id="@+id/startingButton"
         android:layout_width="437dp"
         android:layout_height="687dp"
-
         android:layout_marginStart="40dp"
         android:layout_marginEnd="41dp"
         android:layout_marginBottom="40dp"
@@ -36,4 +35,21 @@
         app:layout_constraintTop_toTopOf="parent"
         android:background="@android:color/transparent"/>
 
+    <Button
+        android:id="@+id/teste"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="64dp"
+        android:enabled="true"
+        android:text="Conexão"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.162"
+        android:onClick="teste"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
