@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".PrincipalActivity">
 
+    <ImageButton
+        android:id="@+id/configuracao"
+        android:layout_width="42dp"
+        android:layout_height="43dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/settings"
+        android:onClick="openConfigurations"/>
 
     <Button
         android:id="@+id/button_visited_communities"
@@ -29,21 +40,21 @@
         android:layout_alignParentTop="true"
         android:layout_gravity="start"
         android:layout_marginBottom="440dp"
-        app:layout_constraintTop_toBottomOf="@id/button_visited_communities"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_visited_communities" />
 
     <Button
         android:id="@+id/button_found_communities"
         android:layout_width="400dp"
         android:layout_height="25dp"
-        android:text="Found Communities"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="18dp"
-        android:textColor="@color/cardview_light_background"
         android:background="@color/colorPrimaryDark"
-        app:layout_constraintTop_toBottomOf="@id/visited_communities"/>
+        android:text="Found Communities"
+        android:textColor="@color/cardview_light_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/visited_communities"
+        tools:layout_editor_absoluteY="18dp" />
 
     <ListView
         android:id="@+id/found_communities"
@@ -61,13 +72,13 @@
         android:id="@+id/button_created_communities"
         android:layout_width="400dp"
         android:layout_height="25dp"
-        android:text="Created Communities"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="18dp"
-        android:textColor="@color/cardview_light_background"
         android:background="@color/colorPrimaryDark"
+        android:onClick="openCreateEventActivity"
+        android:text="Created Communities"
+        android:textColor="@color/cardview_light_background"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/found_communities"
-        android:onClick="openCreateEventActivity"/>
+        tools:layout_editor_absoluteY="18dp" />
 
     <ListView
         android:id="@+id/created_communities"
@@ -80,4 +91,5 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/button_created_communities" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

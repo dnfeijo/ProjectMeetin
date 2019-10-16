@@ -71,4 +71,9 @@ public class PrincipalActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CreateEventActivity.class);
         startActivity(intent);
     }
+
+    public void openConfigurations(View view) {
+        Intent intent = new Intent(this, ConfigurationsActivity.class);
+        startActivity(intent);
+    }
 }
