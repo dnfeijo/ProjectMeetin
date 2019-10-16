@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -64,5 +65,10 @@ public class PrincipalActivity extends AppCompatActivity {
 
         adaptadorCreated = new ArrayAdapter(PrincipalActivity.this, android.R.layout.simple_list_item_1, opcoesCreated);
         createdCommunities.setAdapter(adaptadorCreated);
+    }
+
+    public void openCreateEventActivity(View view) {
+        Intent intent = new Intent(this, CreateEventActivity.class);
+        startActivity(intent);
     }
 }
