@@ -1,21 +1,15 @@
 package br.ufc.meetin;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class PrincipalActivity extends AppCompatActivity {
 
@@ -74,6 +68,11 @@ public class PrincipalActivity extends AppCompatActivity {
 
     public void openConfigurations(View view) {
         Intent intent = new Intent(this, ConfigurationsActivity.class);
+        startActivity(intent);
+    }
+
+    public void openLocate(View view) {
+        Intent intent = new Intent(this, LocateActivity.class);
         startActivity(intent);
     }
 }

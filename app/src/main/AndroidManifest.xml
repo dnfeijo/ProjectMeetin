@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+    <!-- - MY KEY: AIzaSyC1NR2q6eUloE4l57hm8e_HCncn256DiAk "@string/google_awareness_key"-->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/meetin"
@@ -13,45 +14,64 @@
         android:roundIcon="@mipmap/meetin_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".ui.login.LoginActivity"
-            android:label="@string/title_activity_login"
-            android:parentActivityName=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.DEFAULT" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".RegisterActivity"
-            android:label="Sign up"
-            android:parentActivityName=".ui.login.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".PrincipalActivity"
-            android:parentActivityName=".ui.login.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.DEFAULT" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".CreateEventActivity" android:parentActivityName=".PrincipalActivity"/>
-        <activity android:name=".ConfigurationsActivity" android:parentActivityName=".PrincipalActivity"/>
-    </application>
+        <meta-data
+            android:name="com.google.android.awareness.API_KEY"
+            android:value="@string/google_awareness_key"/>
 
-</manifest>
+        <meta-data
+             android:name="com.google.android.geo.API_KEY"
+             android:value="AIzaSyC-oW-BLoLXXUHg4Zm1TMMTByrv24X1pg4"/>
+        <!--<meta-data
+             android:name="com.google.android.nearby.messages.API_KEY"
+             android:value="@string/google_awareness_key"/>
+             -->
+         <activity android:name=".MainActivity">
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+                 <action android:name="android.intent.action.VIEW" />
+                 <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
+         </activity>
+         <activity
+             android:name=".ui.login.LoginActivity"
+             android:label="@string/title_activity_login"
+             android:parentActivityName=".MainActivity">
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+                 <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
+             <intent-filter>
+                 <action android:name="android.intent.action.DEFAULT" />
+                 <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
+         </activity>
+         <activity
+             android:name=".RegisterActivity"
+             android:label="Sign up"
+             android:parentActivityName=".ui.login.LoginActivity">
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+                 <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
+         </activity>
+         <activity
+             android:name=".PrincipalActivity"
+             android:parentActivityName=".ui.login.LoginActivity">
+             <intent-filter>
+                 <action android:name="android.intent.action.DEFAULT" />
+                 <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
+         </activity>
+         <activity
+             android:name=".LocateActivity"
+             android:parentActivityName=".PrincipalActivity">
+             <intent-filter>
+                 <action android:name="android.intent.action.DEFAULT" />
+                 <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
+         </activity>
+         <activity android:name=".CreateEventActivity" android:parentActivityName=".PrincipalActivity"/>
+         <activity android:name=".ConfigurationsActivity" android:parentActivityName=".PrincipalActivity"/>
+     </application>
+
+ </manifest>
