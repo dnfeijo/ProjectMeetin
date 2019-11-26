@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.view.Menu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +60,12 @@ public class PrincipalActivity extends AppCompatActivity {
 
         adaptadorCreated = new ArrayAdapter(PrincipalActivity.this, android.R.layout.simple_list_item_1, opcoesCreated);
         createdCommunities.setAdapter(adaptadorCreated);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu (Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
     }
 
     public void openCreateEventActivity(View view) {
