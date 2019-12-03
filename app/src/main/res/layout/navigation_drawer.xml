@@ -8,13 +8,16 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
+    <include layout="@layout/activity_principal"/>
+
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:paddingTop="48dp"
+        android:paddingTop="40dp"
         android:id="@+id/navigation_view"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/navigation_header"/>
+        app:headerLayout="@layout/navigation_header"
+        app:menu="@menu/navigation_menu"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -26,11 +27,14 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import br.ufc.meetin.actions.ToastAction;
 import br.ufc.meetin.R;
 
 
 public class LocateActivity extends AppCompatActivity implements OnSuccessListener<Void>, OnFailureListener{
+    Toolbar toolbar;
     final int REQUEST_LOCATION = 1;
     EditText latitudeEscolha;
     EditText longitudeEscolha;
@@ -41,6 +45,12 @@ public class LocateActivity extends AppCompatActivity implements OnSuccessListen
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_locate);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
     }
 
@@ -105,4 +115,10 @@ public class LocateActivity extends AppCompatActivity implements OnSuccessListen
         Log.e("LocateActivity", "onFailure: Houve um erro ao registrar fence", e);
     }
 
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

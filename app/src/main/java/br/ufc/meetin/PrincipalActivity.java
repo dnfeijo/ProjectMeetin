@@ -1,18 +1,28 @@
 package br.ufc.meetin;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.view.Menu;
 
+import com.google.android.material.navigation.NavigationView;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class PrincipalActivity extends AppCompatActivity {
+
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    Toolbar toolbar;
 
     List<String> opcoesVisited;
     ArrayAdapter<String> adaptadorVisited;
@@ -29,7 +39,18 @@ public class PrincipalActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_principal);
+        setContentView(R.layout.navigation_drawer);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navigationView = (NavigationView) findViewById((R.id.navigation_view));
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer);
+        drawerLayout.addDrawerListener(toggle);
+
+        toggle.syncState();
 
         visitedCommunities = (ListView) findViewById(R.id.visited_communities);
 
@@ -38,47 +59,19 @@ public class PrincipalActivity extends AppCompatActivity {
         opcoesVisited.add("SANA - Sala de Exibição");
         opcoesVisited.add("SANA - KPOP");
 
-        adaptadorVisited = new ArrayAdapter(PrincipalActivity.this, android.R.layout.simple_list_item_1, opcoesVisited);
-        visitedCommunities.setAdapter(adaptadorVisited);
-
-        foundCommunities = (ListView) findViewById(R.id.found_communities);
-
-        opcoesFound = new ArrayList<String>();
-
-        opcoesFound.add("SANA - Cosplay");
-        opcoesFound.add("SANA - RPG/TCG");
-        opcoesFound.add("SANA - Geral");
-
-        adaptadorFound = new ArrayAdapter(PrincipalActivity.this, android.R.layout.simple_list_item_1, opcoesFound);
-        foundCommunities.setAdapter(adaptadorFound);
-
-        createdCommunities = (ListView) findViewById(R.id.created_communities);
-
-        opcoesCreated = new ArrayList<String>();
-
-        opcoesCreated.add("Comunidade criada");
-
-        adaptadorCreated = new ArrayAdapter(PrincipalActivity.this, android.R.layout.simple_list_item_1, opcoesCreated);
-        createdCommunities.setAdapter(adaptadorCreated);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu (Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
-    }
-
-    public void openCreateEventActivity(View view) {
+    public void openCreateEventActivity(MenuItem menuItem) {
         Intent intent = new Intent(this, CreateEventActivity.class);
         startActivity(intent);
     }
 
-    public void openConfigurations(View view) {
+    public void openConfigurations(MenuItem menuItem) {
         Intent intent = new Intent(this, ConfigurationsActivity.class);
         startActivity(intent);
     }
 
-    public void openLocate(View view) {
+    public void openLocate(MenuItem menuItem) {
         Intent intent = new Intent(this, LocateActivity.class);
         startActivity(intent);
     }

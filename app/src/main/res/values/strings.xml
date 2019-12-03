@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">Meetin</string>
     <string name="title_activity_login">Entrar</string>
-    <string name="prompt_email">Usuário ou Email</string>
+    <string name="login">Usuário ou Email</string>
     <string name="meetin">Meetin\'</string>
     <string name="prompt_password">Senha</string>
+    <string name="confirm_password">Confirmar Senha</string>
     <string name="action_sign_in">Entrar</string>
     <string name="action_sign_up">Registre-se</string>
     <string name="action_sign_in_short">Entrar</string>
@@ -13,7 +14,24 @@
     <string name="login_failed">"Login falhou"</string>
     <string name="title_activity_settings">Configurações</string>
     <string name="topdown_menu_searchEvents">Buscar Novos Eventos</string>
+    <string name="topdown_menu_createEvent">Criar Novo Evento</string>
     <string name="topdown_menu_settings">Configurações</string>
+    <string name="open_drawer">Abrir Menu</string>
+    <string name="close_drawer">Fechar Menu</string>
+    <string name="general_settings_string">Configurações Gerais</string>
+    <string name="privacy_settings_string">Configurações de Privacidade</string>
+    <string name="register_username">Usuário</string>
+    <string name="register_email">Email</string>
+    <string name="register_phone">Número de Celular</string>
+    <string name="create_event_name">Nome do Evento</string>
+    <string name="create_event_description">Descrição</string>
+    <string name="create_event_data">Data</string>
+    <string name="create_event_hour">Hora</string>
+    <string name="create_event_address">Endereço</string>
+    <string name="create_event_code_check">Código?</string>
+    <string name="create_event_pass_code">Código de Entrada</string>
+    <string name="create_event_create">Criar</string>
+
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
