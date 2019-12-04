@@ -9,8 +9,10 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.os.Bundle;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -43,19 +45,14 @@ import br.ufc.meetin.data.Event;
 public class LocateActivity extends AppCompatActivity implements OnSuccessListener<Void>, OnFailureListener{
     private static LocateActivity ins;
     Toolbar toolbar;
-    //final int REQUEST_LOCATION = 1;
-    EditText latitudeEscolha;
-    EditText longitudeEscolha;
-    EditText radiusEscolha;
-
-    List<String> optionsNearEvents;
-    ArrayAdapter<String> adapterNear;
     ListView nearEvents;
 
     Event event1 = new Event("SANA", -3.7274, -38.5093);
     Event event2 = new Event("KPOP", -30.7274, -3.5093);
     Event event3 = new Event("BIENAL", -3.7274, -38.5093);
-    Event[] events = {event1, event2, event3};
+    Event event4 = new Event("APRESENTAÇÃO", 53.7274, -22.5093);
+    Event event5 = new Event("HACKATON", -3.7274, -38.5093);
+    Event[] events = {event1, event2, event3, event4, event5};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -71,13 +68,12 @@ public class LocateActivity extends AppCompatActivity implements OnSuccessListen
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         setFence();
+        nearEvents = findViewById(R.id.near_events_list);
+        setListViewHeightBasedOnChildren(nearEvents);
+
     }
 
     public void setFence(){
-        latitudeEscolha = findViewById(R.id.latitude);
-        longitudeEscolha = findViewById(R.id.longitude);
-        radiusEscolha = findViewById(R.id.radius);
-
         ArrayList<AwarenessFence> inPlace = new ArrayList<>();
         ArrayList<PendingIntent> piList = new ArrayList<>();
         for(int i = 0; i<events.length; i++){
@@ -125,5 +121,27 @@ public class LocateActivity extends AppCompatActivity implements OnSuccessListen
 
     public static LocateActivity getInstance() {
         return ins;
+    }
+
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            // pre-condition
+            return;
+        }
+
+        int totalHeight = listView.getPaddingTop() + listView.getPaddingBottom();
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            if (listItem instanceof ViewGroup) {
+                listItem.setLayoutParams(new ListView.LayoutParams(ListView.LayoutParams.WRAP_CONTENT, ListView.LayoutParams.WRAP_CONTENT));
+            }
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount()) - 1);
+        listView.setLayoutParams(params);
     }
 }

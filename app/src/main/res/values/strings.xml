@@ -31,6 +31,7 @@
     <string name="create_event_code_check">Código?</string>
     <string name="create_event_pass_code">Código de Entrada</string>
     <string name="create_event_create">Criar</string>
+    <string name="principal_communities">Comunidade</string>
 
 
     <!-- Preference Titles -->

@@ -5,7 +5,10 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -55,6 +58,9 @@ public class ConfigurationsActivity extends AppCompatActivity {
 
         adaptadorPrivacySettings= new ArrayAdapter(ConfigurationsActivity.this, android.R.layout.simple_list_item_1, opcoesPrivacySettings);
         privacySettings.setAdapter(adaptadorPrivacySettings);
+
+        setListViewHeightBasedOnChildren(generalSettings);
+        setListViewHeightBasedOnChildren(privacySettings);
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -62,5 +68,27 @@ public class ConfigurationsActivity extends AppCompatActivity {
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            // pre-condition
+            return;
+        }
+
+        int totalHeight = listView.getPaddingTop() + listView.getPaddingBottom();
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            if (listItem instanceof ViewGroup) {
+                listItem.setLayoutParams(new ListView.LayoutParams(ListView.LayoutParams.WRAP_CONTENT, ListView.LayoutParams.WRAP_CONTENT));
+            }
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount()) - 1);
+        listView.setLayoutParams(params);
     }
 }

@@ -11,7 +11,9 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.view.Menu;
 import android.widget.Toast;
@@ -66,6 +68,7 @@ public class PrincipalActivity extends AppCompatActivity {
 
         adaptadorVisited = new ArrayAdapter<String>(PrincipalActivity.this, android.R.layout.simple_list_item_1, opcoesVisited);
         visitedCommunities.setAdapter(adaptadorVisited);
+        setListViewHeightBasedOnChildren(visitedCommunities);
 
     }
 
@@ -107,5 +110,27 @@ public class PrincipalActivity extends AppCompatActivity {
     public void openLocate() {
         Intent intent = new Intent(this, LocateActivity.class);
         startActivity(intent);
+    }
+
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            // pre-condition
+            return;
+        }
+
+        int totalHeight = listView.getPaddingTop() + listView.getPaddingBottom();
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            if (listItem instanceof ViewGroup) {
+                listItem.setLayoutParams(new ListView.LayoutParams(ListView.LayoutParams.WRAP_CONTENT, ListView.LayoutParams.WRAP_CONTENT));
+            }
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount()) - 1);
+        listView.setLayoutParams(params);
     }
 }
