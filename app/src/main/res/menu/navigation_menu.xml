@@ -6,7 +6,7 @@
         <item
             android:title="@string/topdown_menu_searchEvents"
             android:id="@+id/navigation_searchEvents"
-            android:onClick="openLocate">
+            android:onClick="permissionLocate">
         </item>
         <item
             android:title="@string/topdown_menu_createEvent"

@@ -26,14 +26,14 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Latitude"
-            android:inputType="numberDecimal" />
+            android:inputType="numberDecimal|numberSigned" />
 
         <EditText
             android:id="@+id/longitude"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="numberDecimal"
+            android:inputType="numberDecimal|numberSigned"
             android:hint="Longitude" />
 
         <EditText
@@ -44,12 +44,17 @@
             android:inputType="number"
             android:hint="Raio" />
 
-        <Button
+        <!--<Button
             android:id="@+id/setLocal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Determinar Local"
-            android:onClick="permissionFence"/>
+            android:onClick="permissionFence"/>-->
 
+        <ListView
+            android:id="@+id/near_events_list"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:drawSelectorOnTop="false" />
 
 </LinearLayout>

@@ -18,9 +18,9 @@
         app:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
 
     <Button
-        android:id="@+id/button_visited_communities"
-        android:layout_width="413dp"
-        android:layout_height="26dp"
+        android:id="@+id/button_communities"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
         android:background="@color/colorPrimaryDark"
         android:selectAllOnFocus="true"
@@ -43,6 +43,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_visited_communities" />
+        app:layout_constraintTop_toBottomOf="@id/button_communities" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

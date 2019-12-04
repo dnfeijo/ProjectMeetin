@@ -5,13 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.view.Menu;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -19,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PrincipalActivity extends AppCompatActivity {
+
+    final int REQUEST_LOCATION = 1;
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -59,6 +64,34 @@ public class PrincipalActivity extends AppCompatActivity {
         opcoesVisited.add("SANA - Sala de Exibição");
         opcoesVisited.add("SANA - KPOP");
 
+        adaptadorVisited = new ArrayAdapter<String>(PrincipalActivity.this, android.R.layout.simple_list_item_1, opcoesVisited);
+        visitedCommunities.setAdapter(adaptadorVisited);
+
+    }
+
+    public void permissionLocate(MenuItem menuItem){
+        if(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            openLocate();
+        } else{
+            if(shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)){
+                Toast.makeText(this, "Para funcionar, precisa de localização", Toast.LENGTH_SHORT).show();
+            }
+
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults){
+        if (requestCode == REQUEST_LOCATION) {
+            if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                openLocate();
+            } else {
+                Toast.makeText(this, "Permissão não concedida", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 
     public void openCreateEventActivity(MenuItem menuItem) {
@@ -71,7 +104,7 @@ public class PrincipalActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void openLocate(MenuItem menuItem) {
+    public void openLocate() {
         Intent intent = new Intent(this, LocateActivity.class);
         startActivity(intent);
     }

@@ -7,10 +7,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.awareness.fence.FenceState;
 
+//TALVEZ DELETAR
 public class ToastAction extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        Toast.makeText(context, "Testando", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Localizando", Toast.LENGTH_SHORT).show();
         int state = FenceState.extract(intent).getCurrentState();
         switch (state){
             case FenceState.TRUE:

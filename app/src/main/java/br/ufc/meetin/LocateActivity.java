@@ -9,7 +9,9 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 
@@ -29,22 +31,38 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import br.ufc.meetin.actions.InsertListAction;
 import br.ufc.meetin.actions.ToastAction;
 import br.ufc.meetin.R;
+import br.ufc.meetin.data.Event;
 
 
 public class LocateActivity extends AppCompatActivity implements OnSuccessListener<Void>, OnFailureListener{
+    private static LocateActivity ins;
     Toolbar toolbar;
-    final int REQUEST_LOCATION = 1;
+    //final int REQUEST_LOCATION = 1;
     EditText latitudeEscolha;
     EditText longitudeEscolha;
     EditText radiusEscolha;
 
+    List<String> optionsNearEvents;
+    ArrayAdapter<String> adapterNear;
+    ListView nearEvents;
+
+    Event event1 = new Event("SANA", -3.7274, -38.5093);
+    Event event2 = new Event("KPOP", -30.7274, -3.5093);
+    Event event3 = new Event("BIENAL", -3.7274, -38.5093);
+    Event[] events = {event1, event2, event3};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_locate);
+
+        ins = this;
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -52,31 +70,7 @@ public class LocateActivity extends AppCompatActivity implements OnSuccessListen
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-    }
-
-    public void permissionFence(View view){
-        if(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-            setFence();
-        } else{
-            if(shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)){
-                Toast.makeText(this, "Para funcionar, precisa de localização", Toast.LENGTH_SHORT).show();
-            }
-
-            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults){
-        if (requestCode == REQUEST_LOCATION) {
-            if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                setFence();
-            } else {
-                Toast.makeText(this, "Permissão não concedida", Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
+        setFence();
     }
 
     public void setFence(){
@@ -84,24 +78,27 @@ public class LocateActivity extends AppCompatActivity implements OnSuccessListen
         longitudeEscolha = findViewById(R.id.longitude);
         radiusEscolha = findViewById(R.id.radius);
 
-        double latitudeNumber = Double.parseDouble(latitudeEscolha.getText().toString());
-        double longitudeNumber = Double.parseDouble(longitudeEscolha.getText().toString());
-        double radiusNumber = Double.parseDouble(radiusEscolha.getText().toString());
-
-        AwarenessFence inPlace = LocationFence.in(latitudeNumber, longitudeNumber, radiusNumber, 10);;
-
-        //Filtros de Intent
-        IntentFilter ip = new IntentFilter("inPlace");
-        //Registrar Receivers (actions) na pilha do Android
-        registerReceiver(new ToastAction(), ip);
-        //Registrar PendingIntents getBroadcast com os filtros criados
-        PendingIntent pi = PendingIntent.getBroadcast(this,123,new Intent("inPlace"),PendingIntent.FLAG_CANCEL_CURRENT);
+        ArrayList<AwarenessFence> inPlace = new ArrayList<>();
+        ArrayList<PendingIntent> piList = new ArrayList<>();
+        for(int i = 0; i<events.length; i++){
+            inPlace.add(LocationFence.in(events[i].getLatitude(), events[i].getLongitude(), 50, 10));
+            //Filtros de Intent
+            IntentFilter ip = new IntentFilter("inPlace");
+            //Registrar Receivers (actions) na pilha do Android
+            registerReceiver(new InsertListAction(), ip);
+            //Registrar PendingIntents getBroadcast com os filtros criados
+            piList.add(PendingIntent.getBroadcast(this,100+i, new Intent("inPlace").putExtra("EventName",events[i].getName()),PendingIntent.FLAG_ONE_SHOT));
+        }
         //Registro de Fences no Google Awareness API
         FenceClient fc = Awareness.getFenceClient(this);
-        fc.updateFences(new FenceUpdateRequest.Builder().addFence("InPlace",inPlace,pi).build())
+        FenceUpdateRequest.Builder builder = new FenceUpdateRequest.Builder();
+        for(int i = 0; i<inPlace.size(); i++){
+            builder.addFence("InPlace" + (char) i, inPlace.get(i), piList.get(i));
+        }
+        fc.updateFences(builder
+                .build())
                 .addOnSuccessListener(this)
                 .addOnFailureListener(this);
-        Toast.makeText(this, "É pra dar certo", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -120,5 +117,13 @@ public class LocateActivity extends AppCompatActivity implements OnSuccessListen
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public ListView getEventsListView() {
+       return (ListView) findViewById(R.id.near_events_list);
+    }
+
+    public static LocateActivity getInstance() {
+        return ins;
     }
 }
