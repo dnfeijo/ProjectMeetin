@@ -8,7 +8,7 @@
     <string name="action_sign_in">Entrar</string>
     <string name="action_sign_up">Registre-se</string>
     <string name="action_sign_in_short">Entrar</string>
-    <string name="welcome">"Bem Vindo !"</string>
+    <string name="welcome">"Bem Vindo "</string>
     <string name="invalid_username">Não é um nome de usuário válido</string>
     <string name="invalid_password">A senha deve ter mais de 5 caracteres.</string>
     <string name="login_failed">"Login falhou"</string>
