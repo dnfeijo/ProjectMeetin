@@ -34,8 +34,4 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void teste(View view){
-        BackgroundWorker backgroundWorker = new BackgroundWorker(this);
-        backgroundWorker.execute("login", "Katharine", "12345");
-    }
 }

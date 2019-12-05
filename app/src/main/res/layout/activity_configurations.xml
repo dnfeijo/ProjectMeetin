@@ -1,36 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/configuration_constraint"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ConfigurationsActivity">
 
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:layout_marginTop="46dp"
         android:background="@color/colorPrimary"
         android:elevation="4dp"
+        app:layout_constraintBottom_toTopOf="@id/scroll_view_configuration"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
 
-    <ScrollView android:id="@+id/scroll_view_configuration"
+    <ScrollView
+        android:id="@+id/scroll_view_configuration"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/scroll_constraint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="56dp"
-            android:paddingBottom="56dp">
+            android:paddingBottom="46dp">
 
             <Button
                 android:id="@+id/button_general_settings"
@@ -39,7 +44,7 @@
                 android:background="@color/colorPrimaryDark"
                 android:selectAllOnFocus="true"
                 android:text="@string/general_settings_string"
-                android:textColor="@color/cardview_light_background"
+                android:textColor="@color/colorLightText"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimaryDark"
                 android:text="@string/privacy_settings_string"
-                android:textColor="@color/cardview_light_background"
+                android:textColor="@color/colorLightText"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/general_settings" />
 

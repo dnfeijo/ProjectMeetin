@@ -5,7 +5,7 @@
     android:layout_height="160dp"
     android:padding="16dp"
     android:gravity="bottom"
-    android:background="@color/design_default_color_primary">
+    android:background="@color/colorPrimary">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="56dp"
@@ -24,7 +24,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="diego@placeholder.com"
+        android:text="diego@teste.com"
         android:paddingTop="4dp"
         android:textColor="@color/colorLightText" />
 </LinearLayout>

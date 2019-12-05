@@ -24,9 +24,7 @@ import com.google.android.gms.awareness.FenceClient;
 import com.google.android.gms.awareness.fence.AwarenessFence;
 import com.google.android.gms.awareness.fence.DetectedActivityFence;
 import com.google.android.gms.awareness.fence.FenceUpdateRequest;
-import com.google.android.gms.awareness.fence.HeadphoneFence;
 import com.google.android.gms.awareness.fence.LocationFence;
-import com.google.android.gms.awareness.state.HeadphoneState;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
@@ -37,7 +35,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.ufc.meetin.actions.InsertListAction;
-import br.ufc.meetin.actions.ToastAction;
 import br.ufc.meetin.R;
 import br.ufc.meetin.data.Event;
 
@@ -48,10 +45,11 @@ public class LocateActivity extends AppCompatActivity implements OnSuccessListen
     ListView nearEvents;
 
     Event event1 = new Event("SANA", -3.7274, -38.5093);
-    Event event2 = new Event("KPOP", -30.7274, -3.5093);
+    Event event2 = new Event("KPOP", -3.8455723, -38.5759335);
     Event event3 = new Event("BIENAL", -3.7274, -38.5093);
-    Event event4 = new Event("APRESENTAÇÃO", 53.7274, -22.5093);
+    Event event4 = new Event("APRESENTAÇÃO", -3.746362,-38.578122);
     Event event5 = new Event("HACKATON", -3.7274, -38.5093);
+    Event event6 = new Event("EVENTO", -30.7274, -3.5093);
     Event[] events = {event1, event2, event3, event4, event5};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,14 +76,11 @@ public class LocateActivity extends AppCompatActivity implements OnSuccessListen
         ArrayList<PendingIntent> piList = new ArrayList<>();
         for(int i = 0; i<events.length; i++){
             inPlace.add(LocationFence.in(events[i].getLatitude(), events[i].getLongitude(), 50, 10));
-            //Filtros de Intent
             IntentFilter ip = new IntentFilter("inPlace");
-            //Registrar Receivers (actions) na pilha do Android
             registerReceiver(new InsertListAction(), ip);
-            //Registrar PendingIntents getBroadcast com os filtros criados
             piList.add(PendingIntent.getBroadcast(this,100+i, new Intent("inPlace").putExtra("EventName",events[i].getName()),PendingIntent.FLAG_ONE_SHOT));
         }
-        //Registro de Fences no Google Awareness API
+
         FenceClient fc = Awareness.getFenceClient(this);
         FenceUpdateRequest.Builder builder = new FenceUpdateRequest.Builder();
         for(int i = 0; i<inPlace.size(); i++){
@@ -99,12 +94,12 @@ public class LocateActivity extends AppCompatActivity implements OnSuccessListen
 
     @Override
     public void onSuccess(Void aVoid) {
-        Toast.makeText(this, "Fence registrada com sucesso", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Localizando", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onFailure(@NonNull Exception e) {
-        Toast.makeText(this, "Houve um erro ao registrar fence", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Houve um erro ao localizar", Toast.LENGTH_SHORT).show();
         Log.e("LocateActivity", "onFailure: Houve um erro ao registrar fence", e);
     }
 

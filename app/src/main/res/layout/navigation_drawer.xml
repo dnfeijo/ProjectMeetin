@@ -13,7 +13,7 @@
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:paddingTop="40dp"
+        android:paddingTop="20dp"
         android:id="@+id/navigation_view"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
